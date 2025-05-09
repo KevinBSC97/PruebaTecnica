@@ -1,0 +1,47 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# DotCover
+*.dotCover
+
+# NCrunch
+*.ncrunch*
+*.nunit.xml
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# Auto-generated files
+Generated_Code/
+*.g.*
+*.i.obj
+*.cache
+*.dbmdl
+*.pdb
+*.mdb
+
+# Project-specific
+project.lock.json
+project.assets.json
+project.fragment.lock.json
+*.csproj.user
+*.Designer.cs
+
+# Others
+_ReSharper*/
+_TemporaryKey*.pfx
+*.publishsettings
