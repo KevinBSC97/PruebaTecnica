@@ -59,7 +59,7 @@ namespace backend.Controllers
                 Email = dto.Email,
                 Password = EncriptarPassword(dto.Password),
                 FechaCreacion = DateTime.UtcNow,
-                Rol = "SOLICITANTE"
+                Rol = "ANALISTA"
             };
 
             await _usuarioRepo.AddAsync(nuevoUsuario);
@@ -68,7 +68,7 @@ namespace backend.Controllers
             if (!exito)
                 return StatusCode(500, "No se pudo completar el registro");
 
-            return Ok("Usuario registrado exitosamente");
+            return Ok(new { mensaje = "Usuario registrado exitosamente"} );
         }
 
         private bool VerifyPassword(string plainPassword, string hashedPassword)
