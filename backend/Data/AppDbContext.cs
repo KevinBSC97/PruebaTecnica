@@ -9,6 +9,7 @@ namespace backend.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Credito> Creditos { get; set; }
+        public DbSet<LogAuditoria> LogsAuditoria { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +24,18 @@ namespace backend.Data
                 .WithOne(c => c.Usuario)
                 .HasForeignKey(c => c.UsuarioId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Credito>()
+                .Property(c => c.Monto)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Credito>()
+                .Property(c => c.TazaInteres)
+                .HasPrecision(5, 2);
+
+            modelBuilder.Entity<Credito>()
+                .Property(c => c.IngresoMensual)
+                .HasPrecision(18, 2);
         }
     }
 }
