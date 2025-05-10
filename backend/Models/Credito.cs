@@ -12,7 +12,7 @@ namespace backend.Models
         [Required]
         public int Plazo { get; set; }
         [Required]
-        public decimal TazaInteres { get; set; }
+        public decimal TasaInteres { get; set; }
         [Required]
         public decimal IngresoMensual { get; set; }
         [Required]
@@ -20,6 +20,8 @@ namespace backend.Models
         public string RelacionDependencia { get; set; } = null!;
         public string Estado { get; set; } = "PENDIENTE";
         public DateTime FechaSolicitud { get; set; } = DateTime.UtcNow;
+        public decimal CuotaMensual { get; set; }
+        public decimal TotalPagar { get; set; }
         //Fk
         public int UsuarioId { get; set; }
         [ForeignKey("UsuarioId")]

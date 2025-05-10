@@ -30,11 +30,19 @@ namespace backend.Data
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<Credito>()
-                .Property(c => c.TazaInteres)
+                .Property(c => c.TasaInteres)
                 .HasPrecision(5, 2);
 
             modelBuilder.Entity<Credito>()
                 .Property(c => c.IngresoMensual)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Credito>()
+                .Property(c => c.CuotaMensual)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Credito>()
+                .Property(c => c.TotalPagar)
                 .HasPrecision(18, 2);
         }
     }

@@ -4,7 +4,7 @@
     {
         public decimal Monto { get; set; }
         public int Plazo { get; set; }
-        public decimal TazaInteres { get; set; }
+        public decimal TasaInteres { get; set; }
         public decimal IngresoMensual { get; set; }
         public int AntiguedadLaboral { get; set; }
         public string RelacionDependencia { get; set; }
