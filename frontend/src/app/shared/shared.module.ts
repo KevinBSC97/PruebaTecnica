@@ -13,21 +13,13 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
-import { MenuModule } from 'primeng/menu';
-import { MenubarModule } from 'primeng/menubar';
-
-import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
-  declarations: [
-    NavbarComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    MenubarModule,
-    MenuModule
+    ReactiveFormsModule
   ],
   exports: [
     //Modules
@@ -43,10 +35,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     DialogModule,
     ToastModule,
     DropdownModule,
-    CardModule,
-    MenuModule,
-    MenubarModule,
-    NavbarComponent
+    CardModule
   ]
 })
 export class SharedModule { }
