@@ -1,4 +1,5 @@
-﻿using backend.Interfaces;
+﻿using backend.DTOs;
+using backend.Interfaces;
 using backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +24,29 @@ namespace backend.Controllers
         {
             var solicitudes = await _creditoRepo.GetAllAsync();
 
-            if (!string.IsNullOrEmpty(estado))
+            var result = solicitudes.Select(s => new CreditoDTO
             {
-                solicitudes = solicitudes
-                    .Where(s => s.Estado.Equals(estado, StringComparison.OrdinalIgnoreCase));
-            }
+                IdCredito = s.IdCredito,
+                Monto = s.Monto,
+                Plazo = s.Plazo,
+                TasaInteres = s.TasaInteres,
+                IngresoMensual = s.IngresoMensual,
+                AntiguedadLaboral = s.AntiguedadLaboral,
+                RelacionDependencia = s.RelacionDependencia,
+                Estado = s.Estado,
+                FechaSolicitud = s.FechaSolicitud,
+                CuotaMensual = s.CuotaMensual,
+                TotalPagar = s.TotalPagar,
+                Usuario = new UsuarioDTO
+                {
+                    IdUsuario = s.Usuario.IdUsuario,
+                    Nombre = s.Usuario.Nombre,
+                    Apellido = s.Usuario.Apellido,
+                    Email = s.Usuario.Email
+                }
+            }).ToList();
 
-            return Ok(solicitudes);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -42,35 +59,42 @@ namespace backend.Controllers
 
             var estadoSugerido = solicitud.IngresoMensual >= 1500 ? "APROBADO" : "PENDIENTE";
 
-            return Ok(new
+            var dto = new
             {
-                solicitud.IdCredito,
-                solicitud.Monto,
-                solicitud.Plazo,
-                solicitud.IngresoMensual,
-                solicitud.AntiguedadLaboral,
-                solicitud.RelacionDependencia,
-                solicitud.Estado,
+                IdCredito = solicitud.IdCredito,
+                Monto = solicitud.Monto,
+                Plazo = solicitud.Plazo,
+                TasaInteres = solicitud.TasaInteres,
+                IngresoMensual = solicitud.IngresoMensual,
+                AntiguedadLaboral = solicitud.AntiguedadLaboral,
+                RelacionDependencia = solicitud.RelacionDependencia,
+                Estado = solicitud.Estado,
+                FechaSolicitud = solicitud.FechaSolicitud,
+                CuotaMensual = solicitud.CuotaMensual,
+                TotalPagar = solicitud.TotalPagar,
                 EstadoSugerido = estadoSugerido,
                 Usuario = new
                 {
+                    solicitud.Usuario.IdUsuario,
                     solicitud.Usuario.Nombre,
                     solicitud.Usuario.Apellido,
                     solicitud.Usuario.Email
                 }
-            });
+            };
+
+            return Ok(dto);
         }
 
         [HttpPut("{id}/estado")]
         public async Task<IActionResult> CambiarEstado(int id, [FromQuery] string nuevoEstado)
         {
             var solicitud = await _creditoRepo.GetByIdAsync(id);
-
             if (solicitud == null)
                 return NotFound("Solicitud no encontrada");
 
+            nuevoEstado = nuevoEstado.ToUpperInvariant();
             if (nuevoEstado != "APROBADO" && nuevoEstado != "RECHAZADO")
-                return BadRequest("Estado inválid. Debe ser APROBADO o RECHAZADO");
+                return BadRequest("Estado inválido. Debe ser APROBADO o RECHAZADO");
 
             solicitud.Estado = nuevoEstado;
             await _creditoRepo.UpdateAsync(solicitud);
@@ -88,7 +112,7 @@ namespace backend.Controllers
             if (!result)
                 return StatusCode(500, "Error al actualizar el estado de la solicitud");
 
-            return Ok("Estado actualizado correctamente");
+            return Ok(new { mensaje = "Estado actualizado correctamente" });
         }
     }
 }
