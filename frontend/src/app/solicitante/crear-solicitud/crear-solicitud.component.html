@@ -1,0 +1,38 @@
+<p-dialog header="Nueva Solicitud" [(visible)]="mostrarModal" [modal]="true" [closable]="false" [responsive]="true" [style]="{ width: '400px' }">
+  <form [formGroup]="formSolicitud" (ngSubmit)="crearSolicitud()">
+    <div class="mb-3">
+      <label>Monto solicitado</label>
+      <input type="number" pInputText formControlName="monto" class="w-100" />
+    </div>
+
+    <div class="mb-3">
+      <label>Plazo (meses)</label>
+      <input type="number" pInputText formControlName="plazo" class="w-100" />
+    </div>
+
+    <div class="mb-3">
+      <label>Tasa de Interés (%)</label>
+      <input type="number" pInputText formControlName="tasaInteres" class="w-100" />
+    </div>
+
+    <div class="mb-3">
+      <label>Ingreso Mensual</label>
+      <input type="number" pInputText formControlName="ingresoMensual" class="w-100" />
+    </div>
+
+    <div class="mb-3">
+      <label>Antigüedad Laboral (años)</label>
+      <input type="number" pInputText formControlName="antiguedadLaboral" class="w-100" />
+    </div>
+
+    <div class="mb-4">
+      <label>Relación de Dependencia</label>
+      <input type="text" pInputText formControlName="relacionDependencia" class="w-100" />
+    </div>
+
+    <div class="text-end">
+      <button pButton type="button" label="Cancelar" class="p-button-text" (click)="cerrarModal()"></button>
+      <button pButton type="submit" label="Guardar" [disabled]="formSolicitud.invalid"></button>
+    </div>
+  </form>
+</p-dialog>
