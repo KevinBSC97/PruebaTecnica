@@ -5,4 +5,5 @@ export interface CreditoCreateDTO{
   ingresoMensual: number;
   antiguedadLaboral: number;
   relacionDependencia: string;
+  motivo: string;
 }

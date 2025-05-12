@@ -7,6 +7,8 @@ export interface Credito {
   antiguedadLaboral: number;
   relacionDependencia: string;
   estado: string;
+  motivo: string;
+  estadoSugerido: string;
   fechaSolicitud: string;
   cuotaMensual: number;
   totalPagar: number;
