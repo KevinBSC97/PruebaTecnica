@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AnalistaRoutingModule } from './analista-routing.module';
 import { AnalistaComponent } from './analista.component';
-import { HistorialSolicitudesComponent } from './historial-solicitudes/historial-solicitudes.component';
+import { HistorialSolicitudesComponent, RechazoInlineComponent } from './historial-solicitudes/historial-solicitudes.component';
 import { DetalleSolicitudComponent } from './detalle-solicitud/detalle-solicitud.component';
 import { SharedModule } from '../shared/shared.module';
 
@@ -15,7 +15,8 @@ import { DialogService } from 'primeng/dynamicdialog';
   declarations: [
     AnalistaComponent,
     HistorialSolicitudesComponent,
-    DetalleSolicitudComponent
+    DetalleSolicitudComponent,
+    RechazoInlineComponent
   ],
   imports: [
     CommonModule,

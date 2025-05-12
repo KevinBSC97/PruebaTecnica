@@ -1,1 +1,32 @@
-<p>detalle-solicitud works!</p>
+<div class="p-3">
+  <h5>Información de la Solicitud</h5>
+
+  <p><strong>Solicitante:</strong> {{ solicitud.usuario.nombre }} {{ solicitud.usuario.apellido }}</p>
+  <p><strong>Email:</strong> {{ solicitud.usuario.email }}</p>
+  <p><strong>Monto:</strong> {{ solicitud.monto | currency:'USD' }}</p>
+  <p><strong>Plazo:</strong> {{ solicitud.plazo }} meses</p>
+  <p><strong>Ingreso mensual:</strong> {{ solicitud.ingresoMensual | currency:'USD' }}</p>
+  <p><strong>Antigüedad laboral:</strong> {{ solicitud.antiguedadLaboral }} años</p>
+  <p><strong>Relación de dependencia:</strong> {{ solicitud.relacionDependencia }}</p>
+  <p><strong>Motivo:</strong> {{ solicitud.motivo }}</p>
+  <p><strong>Cuota mensual:</strong> {{ solicitud.cuotaMensual | currency:'USD' }}</p>
+  <p><strong>Total a pagar:</strong> {{ solicitud.totalPagar | currency:'USD' }}</p>
+  <p><strong>Estado actual:</strong>
+    <span [ngClass]="{
+      'text-success': solicitud.estado === 'APROBADO',
+      'text-danger': solicitud.estado === 'RECHAZADO',
+      'text-warning': solicitud.estado === 'PENDIENTE'
+    }">{{ solicitud.estado }}</span>
+  </p>
+
+  <p><strong>Evaluación sugerida:</strong>
+    <span [ngClass]="{
+      'text-success': solicitud.estadoSugerido === 'APROBADO',
+      'text-warning': solicitud.estadoSugerido === 'PENDIENTE'
+    }">{{ solicitud.estadoSugerido }}</span>
+  </p>
+
+  <div class="text-end mt-4">
+    <button pButton label="Cerrar" class="p-button-text" (click)="cerrar()"></button>
+  </div>
+</div>
