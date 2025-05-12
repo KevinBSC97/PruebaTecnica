@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ICreditoRepository, CreditoRepository>();
 builder.Services.AddScoped<ILogAuditoriaRepository, LogAuditoriaRepository>();
+builder.Services.AddScoped<INotificacionRepository, NotifcacionRepository>();
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddSingleton<JwtHelper>();
