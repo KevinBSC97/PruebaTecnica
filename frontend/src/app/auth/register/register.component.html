@@ -7,7 +7,7 @@
     <!-- Identificación -->
     <div class="form-group mb-3">
       <label for="identificacion">Identificación</label>
-      <input id="identificacion" type="text" pInputText formControlName="identificacion" class="form-control" />
+      <input id="identificacion" type="text" pInputText formControlName="identificacion" class="form-control" maxlength="10" (keypress)="soloNumeros($event)" />
       <small *ngIf="registerForm.get('identificacion')?.invalid && registerForm.get('identificacion')?.touched" class="text-danger">
         La identificación es obligatoria.
       </small>
@@ -16,7 +16,7 @@
     <!-- Nombre -->
     <div class="form-group mb-3">
       <label for="nombre">Nombre</label>
-      <input id="nombre" type="text" pInputText formControlName="nombre" class="form-control" />
+      <input id="nombre" type="text" pInputText formControlName="nombre" class="form-control" (keypress)="soloLetras($event)" />
       <small *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched" class="text-danger">
         El nombre es obligatorio.
       </small>
@@ -25,7 +25,7 @@
     <!-- Apellido -->
     <div class="form-group mb-3">
       <label for="apellido">Apellido</label>
-      <input id="apellido" type="text" pInputText formControlName="apellido" class="form-control" />
+      <input id="apellido" type="text" pInputText formControlName="apellido" class="form-control" (keypress)="soloLetras($event)" />
       <small *ngIf="registerForm.get('apellido')?.invalid && registerForm.get('apellido')?.touched" class="text-danger">
         El apellido es obligatorio.
       </small>

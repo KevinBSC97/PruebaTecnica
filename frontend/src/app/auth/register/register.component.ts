@@ -17,9 +17,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(){
     this.registerForm = this.fb.group({
-      identificacion: ['', Validators.required],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
+      identificacion: ['', Validators.required, Validators.pattern(/^\d{10}$/)],
+      nombre: ['', Validators.required, Validators.pattern(/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$/)],
+      apellido: ['', Validators.required, Validators.pattern(/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$/)],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmarPassword: ['', Validators.required]
@@ -32,6 +32,21 @@ export class RegisterComponent implements OnInit {
     const pass = group.get('password')?.value;
     const confirm = group.get('confirmarPassword')?.value;
     return pass === confirm ? null : { mismatch: true };
+  }
+
+  soloNumeros(event: KeyboardEvent){
+    const charCode = event.key;
+
+    if (!/^\d$/.test(charCode)) {
+      event.preventDefault(); // bloquea letras y símbolos
+    }
+  }
+
+  soloLetras(event: KeyboardEvent) {
+    const inputChar = String.fromCharCode(event.keyCode);
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
   onSubmit() {
