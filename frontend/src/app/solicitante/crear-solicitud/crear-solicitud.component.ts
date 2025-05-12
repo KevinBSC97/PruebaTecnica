@@ -22,8 +22,8 @@ export class CrearSolicitudComponent implements OnInit {
     this.formSolicitud = this.fb.group({
       monto: [null, [Validators.required, Validators.min(2000), Validators.max(100000)]],
       plazo: [null, [Validators.required, Validators.min(6), Validators.max(60)]],
-      tasaInteres: [null, [Validators.required, Validators.min(0.1), Validators.max(100)]],
-      ingresoMensual: [null, [Validators.required, Validators.min(1)]],
+      tasaInteres: [null, [Validators.required, Validators.min(15.6), Validators.max(20)]],
+      ingresoMensual: [null, [Validators.required, Validators.min(700)]],
       antiguedadLaboral: [null, [Validators.required, Validators.min(0)]],
       relacionDependencia: [null, [Validators.required, Validators.minLength(3)]],
       motivo: [null, [Validators.required]],
