@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { CreditoService } from 'src/app/services/credito.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-historial',
@@ -30,6 +32,29 @@ export class HistorialComponent implements OnInit {
         });
       }
     });
+  }
+
+  descargarPDF() {
+    const doc = new jsPDF();
+    doc.setFontSize(14);
+    doc.text('Historial de Solicitudes', 14, 15);
+
+    const filas = this.solicitudes.map(s => [
+      `${s.monto.toFixed(2)} USD`,
+      `${s.plazo} meses`,
+      `${s.tasaInteres}%`,
+      `${s.estado}`,
+      `${s.motivo}`,
+      new Date(s.fechaSolicitud).toLocaleDateString()
+    ]);
+
+    autoTable(doc, {
+      head: [['Monto', 'Plazo', 'Interés', 'Estado', 'Motivo', 'Fecha']],
+      body: filas,
+      startY: 20
+    });
+
+    doc.save('historial_solicitudes.pdf');
   }
 
   abrirModal(){

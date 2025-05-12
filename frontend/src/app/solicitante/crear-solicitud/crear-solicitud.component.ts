@@ -12,7 +12,7 @@ import { CreditoService } from 'src/app/services/credito.service';
 export class CrearSolicitudComponent implements OnInit {
   @Input() mostrarModal: boolean = false;
   @Output() modalCerrado = new EventEmitter<void>();
-  @Output() solicitudCread = new EventEmitter<void>();
+  @Output() solicitudCreada = new EventEmitter<void>();
 
   formSolicitud!: FormGroup;
 
@@ -26,6 +26,7 @@ export class CrearSolicitudComponent implements OnInit {
       ingresoMensual: [null, [Validators.required, Validators.min(1)]],
       antiguedadLaboral: [null, [Validators.required, Validators.min(0)]],
       relacionDependencia: [null, [Validators.required, Validators.minLength(3)]],
+      motivo: [null, [Validators.required]],
     });
   }
 
@@ -48,7 +49,7 @@ export class CrearSolicitudComponent implements OnInit {
 
         this.formSolicitud.reset();
         this.modalCerrado.emit();
-        this.solicitudCread.emit();
+        this.solicitudCreada.emit();
       },
       error: () => {
         this.messageService.add({

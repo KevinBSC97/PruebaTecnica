@@ -30,6 +30,11 @@
       <input type="text" pInputText formControlName="relacionDependencia" class="w-100" />
     </div>
 
+    <div class="mb-4">
+      <label>Motivo de solicitud</label>
+      <input type="text" pInputText formControlName="motivo" class="w-100" />
+    </div>
+
     <div class="text-end">
       <button pButton type="button" label="Cancelar" class="p-button-text" (click)="cerrarModal()"></button>
       <button pButton type="submit" label="Guardar" [disabled]="formSolicitud.invalid"></button>
