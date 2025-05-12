@@ -72,6 +72,7 @@ namespace backend.Controllers
                 AntiguedadLaboral = solicitud.AntiguedadLaboral,
                 RelacionDependencia = solicitud.RelacionDependencia,
                 Estado = solicitud.Estado,
+                Motivo = solicitud.Motivo,
                 FechaSolicitud = solicitud.FechaSolicitud,
                 CuotaMensual = solicitud.CuotaMensual,
                 TotalPagar = solicitud.TotalPagar,
@@ -90,7 +91,7 @@ namespace backend.Controllers
 
         [HttpPut("{id}/estado")]
         [Authorize(Roles = "ANALISTA")]
-        public async Task<IActionResult> CambiarEstado(int id, [FromQuery] CambioEstadoDTO dto)
+        public async Task<IActionResult> CambiarEstado(int id, [FromBody] CambioEstadoDTO dto)
         {
             var solicitud = await _creditoRepo.GetByIdAsync(id);
             if (solicitud == null)
@@ -119,7 +120,7 @@ namespace backend.Controllers
                 Mensaje = $"Su solicitud #{solicitud.IdCredito} fue {nuevoEstado.ToLower()}. {(dto.Observacion ?? "").Trim()}"
             });
 
-            var result = await _creditoRepo.SaveChangesAsync() && await _logRepo.SaveChangesAsync() && await _notificacionRepo.SaveChangesAsync();
+            var result = await _creditoRepo.SaveChangesAsync();
 
             if (!result)
                 return StatusCode(500, "Error al actualizar el estado de la solicitud");

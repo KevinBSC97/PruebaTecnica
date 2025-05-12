@@ -50,7 +50,7 @@ namespace backend.Controllers
                 IngresoMensual = dto.IngresoMensual,
                 AntiguedadLaboral = dto.AntiguedadLaboral,
                 RelacionDependencia = dto.RelacionDependencia,
-                Estado = dto.IngresoMensual >= 1500 ? "APROBADO" : "PENDIENTE",
+                Estado = "PENDIENTE",
                 FechaSolicitud = DateTime.UtcNow,
                 Motivo = dto.Motivo,
                 UsuarioId = usuarioId,
