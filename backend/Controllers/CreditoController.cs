@@ -3,6 +3,7 @@ using backend.Interfaces;
 using backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace backend.Controllers
 {
@@ -13,10 +14,12 @@ namespace backend.Controllers
     {
         private readonly ICreditoRepository _creditoRepo;
         private readonly ILogAuditoriaRepository _logRepo;
-        public CreditoController(ICreditoRepository creditoRepo, ILogAuditoriaRepository logRepo)
+        private readonly INotificacionRepository _notificacionRepo;
+        public CreditoController(ICreditoRepository creditoRepo, ILogAuditoriaRepository logRepo, INotificacionRepository notificacionRepo)
         {
             _creditoRepo = creditoRepo;
             _logRepo = logRepo;
+            _notificacionRepo = notificacionRepo;
         }
 
         [HttpGet]
@@ -86,20 +89,22 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}/estado")]
-        public async Task<IActionResult> CambiarEstado(int id, [FromQuery] string nuevoEstado)
+        [Authorize(Roles = "ANALISTA")]
+        public async Task<IActionResult> CambiarEstado(int id, [FromQuery] CambioEstadoDTO dto)
         {
             var solicitud = await _creditoRepo.GetByIdAsync(id);
             if (solicitud == null)
                 return NotFound("Solicitud no encontrada");
 
-            nuevoEstado = nuevoEstado.ToUpperInvariant();
+            var nuevoEstado = dto.NuevoEstado.ToUpperInvariant();
             if (nuevoEstado != "APROBADO" && nuevoEstado != "RECHAZADO")
                 return BadRequest("Estado inválido. Debe ser APROBADO o RECHAZADO");
 
             solicitud.Estado = nuevoEstado;
             await _creditoRepo.UpdateAsync(solicitud);
 
-            var analistaId = int.Parse(User.FindFirst("sub")!.Value);
+            var analistaId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
             await _logRepo.RegistrarLogAsync(new LogAuditoria
             {
                 UsuarioId = analistaId,
@@ -107,7 +112,14 @@ namespace backend.Controllers
                 Detalle = $"Solicitud #{id} actualizada a {nuevoEstado}"
             });
 
-            var result = await _creditoRepo.SaveChangesAsync() && await _logRepo.SaveChangesAsync();
+            await _notificacionRepo.CrearAsync(new Notificacion
+            {
+                UsuarioId = solicitud.UsuarioId,
+                CreditoId = solicitud.IdCredito,
+                Mensaje = $"Su solicitud #{solicitud.IdCredito} fue {nuevoEstado.ToLower()}. {(dto.Observacion ?? "").Trim()}"
+            });
+
+            var result = await _creditoRepo.SaveChangesAsync() && await _logRepo.SaveChangesAsync() && await _notificacionRepo.SaveChangesAsync();
 
             if (!result)
                 return StatusCode(500, "Error al actualizar el estado de la solicitud");
