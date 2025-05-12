@@ -9,6 +9,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class NavbarComponent implements OnInit {
   nombreUsuario: string = '';
+  rol: string = '';
   menuItems: MenuItem[] = [];
 
   constructor(private router: Router) {}
@@ -19,8 +20,10 @@ export class NavbarComponent implements OnInit {
       try{
         const usuario = JSON.parse(usuarioJson);
         this.nombreUsuario = usuario.nombre;
+        this.rol = usuario.rol;
       } catch {
         this.nombreUsuario = 'Usuario';
+        this.rol = '';
       }
     }
 

@@ -4,14 +4,18 @@
   </ng-template>
 
   <ng-template pTemplate="end">
-    <p-menu #userMenu [popup]="true" [model]="menuItems" styleClass="p-menu-sm custom-menu"></p-menu>
+    <div class="d-flex align-items-center gap-3 me-3">
+      <app-notificaciones *ngIf="rol === 'SOLICITANTE'"></app-notificaciones>
 
-    <button
-      pButton
-      class="p-button-text text-dark d-flex align-items-center"
-      (click)="userMenu.toggle($event)">
-      <i class="pi pi-user me-2"></i>
-      {{ nombreUsuario }}
-    </button>
+      <p-menu #userMenu [popup]="true" [model]="menuItems" styleClass="p-menu-sm custom-menu"></p-menu>
+
+      <button
+        pButton
+        class="p-button-text text-dark d-flex align-items-center"
+        (click)="userMenu.toggle($event)">
+        <i class="pi pi-user me-2"></i>
+        {{ nombreUsuario }}
+      </button>
+    </div>
   </ng-template>
 </p-menubar>
