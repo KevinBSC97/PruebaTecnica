@@ -59,7 +59,7 @@ namespace backend.Controllers
                 Email = dto.Email,
                 Password = EncriptarPassword(dto.Password),
                 FechaCreacion = DateTime.UtcNow,
-                Rol = "ANALISTA"
+                Rol = "SOLICITANTE"
             };
 
             await _usuarioRepo.AddAsync(nuevoUsuario);
