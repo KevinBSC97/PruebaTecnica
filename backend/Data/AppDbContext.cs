@@ -10,6 +10,7 @@ namespace backend.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Credito> Creditos { get; set; }
         public DbSet<LogAuditoria> LogsAuditoria { get; set; }
+        public DbSet<Notificacion> Notificaciones { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,6 +45,14 @@ namespace backend.Data
             modelBuilder.Entity<Credito>()
                 .Property(c => c.TotalPagar)
                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Notificacion>()
+                .Property(n => n.Leida)
+                .HasDefaultValue(false);
+
+            modelBuilder.Entity<Notificacion>()
+                .Property(n => n.Fecha)
+                .HasDefaultValueSql("GETUTCDATE()");
         }
     }
 }
