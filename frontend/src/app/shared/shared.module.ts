@@ -17,10 +17,12 @@ import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 
 import { NavbarComponent } from './navbar/navbar.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    NotificacionesComponent
   ],
   imports: [
     CommonModule,
