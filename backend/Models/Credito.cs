@@ -20,6 +20,8 @@ namespace backend.Models
         public string RelacionDependencia { get; set; } = null!;
         public string Estado { get; set; } = "PENDIENTE";
         public DateTime FechaSolicitud { get; set; } = DateTime.UtcNow;
+        [Required]
+        public string Motivo { get; set; } = null!;
         public decimal CuotaMensual { get; set; }
         public decimal TotalPagar { get; set; }
         //Fk

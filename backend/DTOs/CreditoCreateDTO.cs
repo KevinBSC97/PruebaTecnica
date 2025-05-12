@@ -8,5 +8,6 @@
         public decimal IngresoMensual { get; set; }
         public int AntiguedadLaboral { get; set; }
         public string RelacionDependencia { get; set; }
+        public string Motivo { get; set; }
     }
 }

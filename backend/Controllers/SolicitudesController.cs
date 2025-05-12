@@ -52,6 +52,7 @@ namespace backend.Controllers
                 RelacionDependencia = dto.RelacionDependencia,
                 Estado = dto.IngresoMensual >= 1500 ? "APROBADO" : "PENDIENTE",
                 FechaSolicitud = DateTime.UtcNow,
+                Motivo = dto.Motivo,
                 UsuarioId = usuarioId,
                 CuotaMensual = Math.Round(cuotaMensual, 2),
                 TotalPagar = Math.Round(totalPagar, 2)
@@ -70,7 +71,7 @@ namespace backend.Controllers
             if (!result)
                 return StatusCode(500, "No se pudo crear la solicitud");
 
-            return Ok("Solicitud de crédito registrada con éxito");
+            return Ok(new { mensaje = "Solicitud de crédito registrada con éxito" });
         }
 
         [HttpGet()]
