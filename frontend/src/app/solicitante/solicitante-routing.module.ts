@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { SolicitanteComponent } from './solicitante.component';
 import { HistorialComponent } from './historial/historial.component';
 import { CrearSolicitudComponent } from './crear-solicitud/crear-solicitud.component';
+import { authGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [authGuard],
     component: SolicitanteComponent,
     children: [
       { path: '', redirectTo: 'historial', pathMatch: 'full' },
