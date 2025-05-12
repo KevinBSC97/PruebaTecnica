@@ -18,7 +18,10 @@ export class SolicitudesService {
     return this.http.get<Credito>(`${this.api}Credito/${id}`);
   }
 
-  cambiarEstado(id: number, estado: string): Observable<any> {
-    return this.http.put(`${this.api}Credito/${id}/estado?nuevoEstado=${estado}`, {});
+  cambiarEstado(id: number, estado: string, observacion?: string): Observable<any> {
+    return this.http.put(`${this.api}Credito/${id}/estado`, {
+      nuevoEstado: estado,
+      observacion: observacion ?? null
+    });
   }
 }
