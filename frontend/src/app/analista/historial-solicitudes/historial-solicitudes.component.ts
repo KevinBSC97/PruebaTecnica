@@ -16,6 +16,15 @@ import autoTable from 'jspdf-autotable';
 })
 export class HistorialSolicitudesComponent implements OnInit {
   solicitudes: Credito[] = [];
+  solicitudesFiltradas: Credito[] = [];
+  estadoSeleccionado: string | null = null;
+
+  estados = [
+    { label: 'Todos', value: null },
+    { label: 'Pendiente', value: 'PENDIENTE' },
+    { label: 'Aprobado', value: 'APROBADO' },
+    { label: 'Rechazado', value: 'RECHAZADO' }
+  ];
 
   constructor(private solicitudesService: SolicitudesService, private messageService: MessageService, private dialogService: DialogService, private creditoService: CreditoService) {}
 
@@ -27,6 +36,7 @@ export class HistorialSolicitudesComponent implements OnInit {
     this.solicitudesService.getSolicitudes().subscribe({
       next: (data) => {
         this.solicitudes = data;
+        this.filtrarSolicitudes();
       },
       error: (err) => {
         this.messageService.add({
@@ -37,6 +47,14 @@ export class HistorialSolicitudesComponent implements OnInit {
         });
       }
     });
+  }
+
+  filtrarSolicitudes() {
+    if (this.estadoSeleccionado) {
+      this.solicitudesFiltradas = this.solicitudes.filter(s => s.estado === this.estadoSeleccionado);
+    } else {
+      this.solicitudesFiltradas = [...this.solicitudes];
+    }
   }
 
   verDetalle(id: number){
