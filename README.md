@@ -51,6 +51,8 @@ Aplicación web para la gestión de solicitudes de crédito, desarrollada como p
 }
 ```
 
+- Para la cadena de conexión, reemplazar la cadena según su entorno configurado 
+
 - **OPCION 1**: Reemplazar <NOMBRE-SQL> con el nombre de tu instancia de SQL Server.
 - **OPCION 2**: Reemplazar <NOMBRE-SQL>, <USUARIO> y <CONTRASEÑA> con el nombre de tu instancia, usuario y clave de SQL Server.
 
