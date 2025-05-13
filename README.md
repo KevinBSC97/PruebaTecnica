@@ -8,6 +8,7 @@ Aplicación web para la gestión de solicitudes de crédito, desarrollada como p
 - **Frontend**: Angular v16.2.16 + PrimeNG + Bootstrap
 - **Backend**: .Net 7 (ASP.NET Core Web API)
 - **Base de Datos**: SQL Server
+- **Herramientas**: Node 18.20.4 - .Net SDK 7.x - Visual Studio 2022 / VS Code
 
 ---
 
@@ -19,22 +20,28 @@ Aplicación web para la gestión de solicitudes de crédito, desarrollada como p
 - Swashbuckle.AspNetCore (6.5.0)
 
 ## FrontEnd (Angular 16.2.16)
-- Node.js 18.20.4
-- Angular CLI (16.2.16)
 - PrimeNG + PrimeIcons
 - Bootstrap 5.3
 - jspdf + jspdf-autotable (para exportar PDF)
 
 ## Instalación y Ejecución
 ### BackEnd
-1. Abrir Visual Studio 2022.
-2. Asegúrate de que SQL Server esté activo y crea la base con los archivos `.mdf` y `.ldf` adjuntos 
-  - Puedes adjuntarla manualmente en SQL Server Management Studio > clic derecho en "Bases de datos" > "Adjuntar...".
-3. Configura `appsettings.json`:
+
+1. **Adjuntar la base de datos**
+
+   - Abre **SQL Server Management Studio** → clic derecho en **Bases de datos** → **Adjuntar…**  
+   - Elige `PruebaTecnica.mdf` (incluido en la carpeta `/database` del repo).  
+   - Confirma que el nombre lógico quede **PruebaTecnica**.
+
+2. Configura `appsettings.json`:
 
 ```json
 "ConnectionStrings": {
-  "ConexionSql": "Server=KEVINBSC97;Database=PruebaTecnica;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;"
+     //  Opción 1 ─ Inicio de sesión de Windows
+     "ConexionSql": "Server=<NOMBRE-SQL>;Database=PruebaTecnica;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=true",
+
+     //  Opción 2 ─ Usuario y contraseña SQL
+     "ConexionSql": "Server=<NOMBRE-SQL>;Database=PruebaTecnica;User Id=<USUARIO>;Password=<CONTRASEÑA>;MultipleActiveResultSets=true;TrustServerCertificate=true"
 },
 "JwtSettings": {
   "SecretKey": "P4l4br4s3cr3t4p4r4v41ld4r10$t0k3n,C4mb14r&p0r&un4p3r20n4112d4d",
@@ -44,18 +51,16 @@ Aplicación web para la gestión de solicitudes de crédito, desarrollada como p
 }
 ```
 
-- Reemplazar Server=KEVINBSC97 con el nombre de tu instancia de SQL Server.
+- **OPCION 1**: Reemplazar <NOMBRE-SQL> con el nombre de tu instancia de SQL Server.
+- **OPCION 2**: Reemplazar <NOMBRE-SQL>, <USUARIO> y <CONTRASEÑA> con el nombre de tu instancia, usuario y clave de SQL Server.
 
-### Archivos de base de datos
+3. En consola, accede al directorio `backend/`:
 
-Este proyecto incluye los archivos `.mdf` y `.ldf` de la base de datos SQL Server. Para usarlos:
+```bash
+cd backend
+```
 
-1. Abre SQL Server Management Studio.
-2. Haz clic derecho en "Bases de datos" > "Adjuntar..."
-3. Selecciona el archivo `PruebaTecnica.mdf` incluido en este repositorio.
-4. Una vez adjuntada, asegúrate de que el nombre coincida con `Database=PruebaTecnica` en el `appsettings.json`.
-
-4. Ejecuta el proyecto:
+3. Ejecuta el proyecto:
 
 ```bash
 dotnet run
