@@ -44,7 +44,9 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(p => p.AddPolicy("PolicyCors", build =>
 {
-    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+    // En entorno local se permite CORS solo desde el frontend Angular.
+    // En producción, se debe configurar con dominios específicos.
+    build.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
 }));
 
 // Add services to the container.
